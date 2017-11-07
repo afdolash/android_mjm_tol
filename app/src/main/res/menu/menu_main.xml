@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/nav_home"
+        android:color="@color/colorWhite"
+        android:icon="@drawable/ic_home_white_24dp"
+        android:title="Beranda" />
+
+    <item
+        android:id="@+id/nav_umkm"
+        android:color="@color/colorWhite"
+        android:icon="@drawable/ic_store_white_24dp"
+        android:title="Belanja" />
+
+    <item
+        android:id="@+id/nav_profile"
+        android:color="@color/colorWhite"
+        android:icon="@drawable/ic_person_white_24dp"
+        android:title="Profile" />
+
+</menu>
