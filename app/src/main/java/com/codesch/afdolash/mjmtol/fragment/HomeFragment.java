@@ -72,13 +72,11 @@ public class HomeFragment extends Fragment {
     void prepareProductData() {
         Product product = new Product(
                 1,
-                1,
-                R.mipmap.ic_launcher,
                 "Jagung",
-                "Kg",
-                "",
-                20000.0,
-                12.0
+                20000,
+                "Asasawawu",
+                "http://",
+                2
         );
 
         mProductList.add(product);

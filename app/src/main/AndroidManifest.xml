@@ -24,7 +24,13 @@
         <activity
             android:name=".activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".activity.ProductDetailActivity" />
+        <activity
+            android:name=".activity.UmkmDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activity.CartActivity" />
+        <activity android:name=".activity.NavigateActivity"></activity>
     </application>
 
 </manifest>

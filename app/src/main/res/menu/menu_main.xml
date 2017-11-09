@@ -15,6 +15,12 @@
         android:title="Belanja" />
 
     <item
+        android:id="@+id/nav_mpas"
+        android:color="@color/colorWhite"
+        android:icon="@drawable/ic_map_white_24dp"
+        android:title="Maps" />
+
+    <item
         android:id="@+id/nav_profile"
         android:color="@color/colorWhite"
         android:icon="@drawable/ic_person_white_24dp"

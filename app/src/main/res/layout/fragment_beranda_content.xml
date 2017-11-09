@@ -86,7 +86,7 @@
                 android:backgroundTint="@color/colorWhite"
                 android:layout_below="@id/tv_navigationDesc"
                 android:text="Mulai Navigasi"
-                android:textSize="10sp"
+                android:textSize="12sp"
                 android:textColor="@color/colorPrimary"
                 android:layout_marginTop="16dp"
                 android:layout_marginLeft="12dp"
