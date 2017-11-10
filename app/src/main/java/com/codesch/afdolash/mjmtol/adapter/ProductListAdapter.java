@@ -41,7 +41,6 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     public void onBindViewHolder(ProductListAdapter.MyViewHolder holder, int position) {
         Product product = productList.get(position);
         holder.tvTitle.setText(product.getNama_produk());
-        holder.tvDesc.setText(product.getDeskripsi_produk());
         holder.tvPrice.setText(String.valueOf(product.getHarga_produk()));
     }
 
@@ -54,7 +53,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
         public LinearLayout linearLayout;
         public ImageView imgProduct;
-        public TextView tvPrice, tvTitle, tvDesc;
+        public TextView tvTitle, tvPrice, tvUmkm, tvLocation;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -62,8 +61,9 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             linearLayout = (LinearLayout) itemView.findViewById(R.id.linear_layout);
             imgProduct = (ImageView) itemView.findViewById(R.id.img_product);
             tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
-            tvDesc = (TextView) itemView.findViewById(R.id.tv_description);
             tvPrice = (TextView) itemView.findViewById(R.id.tv_price);
+            tvUmkm = (TextView) itemView.findViewById(R.id.tv_umkm);
+            tvLocation = (TextView) itemView.findViewById(R.id.tv_location);
         }
     }
 }

@@ -9,8 +9,6 @@
         android:id="@+id/recycler_product"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
         android:clipToPadding="false"/>
 
 </LinearLayout>

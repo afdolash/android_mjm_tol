@@ -22,7 +22,7 @@
         <item name="searchSuggestionBackground">@color/colorWhite</item>
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:textColorHint">@color/colorGrey400</item>
-        <item name="android:hint">Cari barang...</item>
+        <item name="android:hint">Cari...</item>
     </style>
 
 </resources>

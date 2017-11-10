@@ -9,6 +9,7 @@ import android.view.MenuItem;
 
 import com.codesch.afdolash.mjmtol.R;
 import com.codesch.afdolash.mjmtol.fragment.HomeFragment;
+import com.codesch.afdolash.mjmtol.fragment.MapsFragment;
 import com.codesch.afdolash.mjmtol.fragment.ProfileFragment;
 import com.codesch.afdolash.mjmtol.fragment.UmkmFragment;
 
@@ -37,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.nav_home:
                         fragment = new HomeFragment();
+                        break;
+                    case R.id.nav_maps:
+                        fragment = new MapsFragment();
                         break;
                     case R.id.nav_umkm:
                         fragment = new UmkmFragment();

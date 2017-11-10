@@ -9,16 +9,16 @@
         android:title="Beranda" />
 
     <item
+        android:id="@+id/nav_maps"
+        android:color="@color/colorWhite"
+        android:icon="@drawable/ic_map_white_24dp"
+        android:title="Maps" />
+
+    <item
         android:id="@+id/nav_umkm"
         android:color="@color/colorWhite"
         android:icon="@drawable/ic_store_white_24dp"
         android:title="Belanja" />
-
-    <item
-        android:id="@+id/nav_mpas"
-        android:color="@color/colorWhite"
-        android:icon="@drawable/ic_map_white_24dp"
-        android:title="Maps" />
 
     <item
         android:id="@+id/nav_profile"
