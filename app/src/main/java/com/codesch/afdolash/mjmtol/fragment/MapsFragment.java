@@ -11,8 +11,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.codesch.afdolash.mjmtol.R;
+import com.codesch.afdolash.mjmtol.model.Umkm;
+import com.codesch.afdolash.mjmtol.services.ApiService;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -21,8 +24,16 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,6 +43,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     private MaterialSearchView searchView;
     private GoogleMap mGoogleMap;
     private MapView mMapView;
+
+    private List<Umkm> mUmkmList = new ArrayList<>();
 
     public MapsFragment() {
         // Required empty public constructor
@@ -103,12 +116,39 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         mGoogleMap = googleMap;
         mGoogleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
-        // Add a marker in Sydney, Australia, and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mGoogleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        ApiService.service_get.getListUmkm().enqueue(new Callback<ArrayList<Umkm>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Umkm>> call, Response<ArrayList<Umkm>> response) {
+                mUmkmList = response.body()  ;
 
-        CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(12).build();
-        mGoogleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                for (Umkm umkm : mUmkmList) {
+                    double umkmLat = umkm.getLatitude_umkm();
+                    double umkmLng = umkm.getLongitude_umkm();
+
+                    LatLng umkmLatLng = new LatLng(umkmLat, umkmLng);
+
+                    mGoogleMap.addMarker(new MarkerOptions()
+                            .position(umkmLatLng)
+                            .title(umkm.getNama_umkm()));
+
+                    Toast.makeText(getActivity(), umkmLatLng.toString(), Toast.LENGTH_SHORT).show();
+
+                    LatLng sydney = new LatLng(-7.269607, 112.781460);
+                    mGoogleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Umkm>> call, Throwable t) {
+                Toast.makeText(getActivity(),"Mohon maaf terjadi gangguan dengan jaringan Anda", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Add a marker in Sydney, Australia, and move the camera
+
+
+//        CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(12).build();
+//        mGoogleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
 
     @Override

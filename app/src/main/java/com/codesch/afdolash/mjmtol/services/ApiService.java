@@ -48,7 +48,7 @@ public class ApiService {
         @GET("/api_mjm_tol/index.php/Master/all_produk_test")
         Call<ArrayList<Product>> getListProduct();
 
-        @GET("/api_mjm_tol/index.php/Master/all_umkm")
+        @GET("/api_mjm_tol/index.php/Master/all_umkm_test")
         Call<ArrayList<Umkm>> getListUmkm();
     }
 
