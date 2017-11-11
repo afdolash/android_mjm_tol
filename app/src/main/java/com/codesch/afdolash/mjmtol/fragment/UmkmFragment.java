@@ -18,14 +18,22 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.codesch.afdolash.mjmtol.R;
 import com.codesch.afdolash.mjmtol.adapter.ProductListAdapter;
 import com.codesch.afdolash.mjmtol.model.Product;
+import com.codesch.afdolash.mjmtol.services.ApiService;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -83,41 +91,28 @@ public class UmkmFragment extends Fragment {
         });
 
         // Product Recycler View
-        mProductListAdapter = new ProductListAdapter(getActivity(), mProductList);
         RecyclerView.LayoutManager mProductListManager = new GridLayoutManager(getActivity(), 2);
 
         recyclerProduct.setLayoutManager(mProductListManager);
         recyclerProduct.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
         recyclerProduct.setItemAnimator(new DefaultItemAnimator());
-        recyclerProduct.setAdapter(mProductListAdapter);
 
-        prepareProductData();
+        ApiService.service_get.getListProduct().enqueue(new Callback<ArrayList<Product>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Product>> call, Response<ArrayList<Product>> response) {
+                mProductList = response.body()  ;
+                mProductListAdapter = new ProductListAdapter(getContext(), mProductList);
+                mProductListAdapter.notifyDataSetChanged();
+                recyclerProduct.setAdapter(mProductListAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Product>> call, Throwable t) {
+                Toast.makeText(getActivity(),"Mohon maaf terjadi gangguan dengan jaringan Anda", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         return view;
-    }
-
-    void prepareProductData() {
-        Product product = new Product(
-                1,
-                "Jagung",
-                20000,
-                "Asawawu",
-                "http://",
-                10
-        );
-
-        mProductList.add(product);
-        mProductList.add(product);
-        mProductList.add(product);
-        mProductList.add(product);
-        mProductList.add(product);
-        mProductList.add(product);
-        mProductList.add(product);
-        mProductList.add(product);
-        mProductList.add(product);
-        mProductList.add(product);
-
-        mProductListAdapter.notifyDataSetChanged();
     }
 
     @Override

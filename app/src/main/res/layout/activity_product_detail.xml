@@ -27,14 +27,10 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <com.daimajia.slider.library.SliderLayout
-                        android:id="@+id/slider_promo"
+                    <ImageView
+                        android:id="@+id/img_product"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        app:auto_cycle="true"
-                        app:indicator_visibility="visible"
-                        app:pager_animation="Default"
-                        app:pager_animation_span="1100" />
+                        android:layout_height="200dp" />
 
                 </LinearLayout>
 
@@ -55,7 +51,7 @@
                     android:paddingRight="16dp">
 
                     <TextView
-                        android:id="@+id/tv_name"
+                        android:id="@+id/tv_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Title"
@@ -76,6 +72,7 @@
                             android:textSize="18sp"/>
 
                         <TextView
+                            android:id="@+id/tv_price"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="20.000"
@@ -110,6 +107,7 @@
                     android:gravity="center">
 
                     <ImageView
+                        android:id="@+id/img_umkm"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:src="@mipmap/ic_launcher"/>
@@ -122,15 +120,17 @@
                         android:layout_marginLeft="16dp">
 
                         <TextView
+                            android:id="@+id/tv_name_umkm"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Megumi Store"
                             android:textColor="@color/colorBlack"/>
 
                         <TextView
+                            android:id="@+id/tv_kontak_umkm"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Surabaya"
+                            android:text="08124078773"
                             android:textSize="12sp"/>
 
                     </LinearLayout>
@@ -196,7 +196,7 @@
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
-                android:id="@+id/card_simillar"
+                android:id="@+id/card_otherProduct"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
@@ -241,7 +241,7 @@
                         </LinearLayout>
 
                         <TextView
-                            android:id="@+id/tv_moreProduk"
+                            android:id="@+id/tv_moreProduct"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="MORE"
@@ -252,7 +252,7 @@
                     </LinearLayout>
 
                     <android.support.v7.widget.RecyclerView
-                        android:id="@+id/recycler_produk"
+                        android:id="@+id/recycler_product"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"

@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.codesch.afdolash.mjmtol.R;
 import com.codesch.afdolash.mjmtol.model.Product;
 import com.codesch.afdolash.mjmtol.model.Umkm;
@@ -40,7 +42,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(ProductAdapter.MyViewHolder holder, int position) {
+        RequestOptions options = new RequestOptions()
+                .centerCrop()
+                .placeholder(R.mipmap.ic_launcher_round)
+                .error(R.mipmap.ic_launcher_round);
+
         Product product = productList.get(position);
+
+        Glide.with(context).load(product.getFoto_produk()).apply(options).into(holder.imgProduct);
         holder.tvTitle.setText(product.getNama_produk());
         holder.tvPrice.setText(String.valueOf(product.getHarga_produk()));
     }

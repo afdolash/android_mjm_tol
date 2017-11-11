@@ -11,14 +11,20 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.codesch.afdolash.mjmtol.R;
 import com.codesch.afdolash.mjmtol.adapter.CategoryAdapter;
 import com.codesch.afdolash.mjmtol.adapter.ProductAdapter;
 import com.codesch.afdolash.mjmtol.model.Product;
+import com.codesch.afdolash.mjmtol.services.ApiService;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -57,39 +63,27 @@ public class HomeFragment extends Fragment {
         recyclerCategory.setAdapter(mCategoryAdapter);
 
         // Product Recycler View
-        mProductAdapter = new ProductAdapter(getActivity(), mProductList);
         RecyclerView.LayoutManager mProductManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
 
         recyclerProduct.setLayoutManager(mProductManager);
         recyclerProduct.setItemAnimator(new DefaultItemAnimator());
         recyclerProduct.setAdapter(mProductAdapter);
 
-        prepareProductData();
+        ApiService.service_get.getListProduct().enqueue(new Callback<ArrayList<Product>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Product>> call, Response<ArrayList<Product>> response) {
+                mProductList = response.body()  ;
+                mProductAdapter = new ProductAdapter(getContext(), mProductList);
+                recyclerProduct.setAdapter(mProductAdapter);
+                mProductAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Product>> call, Throwable t) {
+                Toast.makeText(getActivity(),"Mohon maaf terjadi gangguan dengan jaringan Anda", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         return view;
-    }
-
-    void prepareProductData() {
-        Product product = new Product(
-                1,
-                "Jagung",
-                20000,
-                "Asasawawu",
-                "http://",
-                2
-        );
-
-        mProductList.add(product);
-        mProductList.add(product);
-        mProductList.add(product);
-        mProductList.add(product);
-        mProductList.add(product);
-        mProductList.add(product);
-        mProductList.add(product);
-        mProductList.add(product);
-        mProductList.add(product);
-        mProductList.add(product);
-
-        mProductAdapter.notifyDataSetChanged();
     }
 }

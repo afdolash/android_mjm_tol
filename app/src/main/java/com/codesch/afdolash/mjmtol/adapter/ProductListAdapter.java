@@ -1,6 +1,8 @@
 package com.codesch.afdolash.mjmtol.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,12 +10,22 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.codesch.afdolash.mjmtol.R;
+import com.codesch.afdolash.mjmtol.activity.ProductDetailActivity;
 import com.codesch.afdolash.mjmtol.model.Product;
+import com.codesch.afdolash.mjmtol.model.Umkm;
+import com.codesch.afdolash.mjmtol.services.ApiService;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by Afdolash on 11/7/2017.
@@ -38,10 +50,38 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     }
 
     @Override
-    public void onBindViewHolder(ProductListAdapter.MyViewHolder holder, int position) {
-        Product product = productList.get(position);
+    public void onBindViewHolder(final ProductListAdapter.MyViewHolder holder, int position) {
+        RequestOptions options = new RequestOptions()
+                .centerCrop()
+                .placeholder(R.mipmap.ic_launcher_round)
+                .error(R.mipmap.ic_launcher_round);
+
+        final Product product = productList.get(position);
+
+        Glide.with(context).load(product.getFoto_produk()).apply(options).into(holder.imgProduct);
         holder.tvTitle.setText(product.getNama_produk());
         holder.tvPrice.setText(String.valueOf(product.getHarga_produk()));
+        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ProductDetailActivity.class);
+                intent.putExtra("id_produk", product.getId_produk());
+                context.startActivity(intent);
+            }
+        });
+
+        ApiService.service_post.postDetailUmkm(product.getId_umkm()).enqueue(new Callback<Umkm>() {
+            @Override
+            public void onResponse(Call<Umkm> call, Response<Umkm> response) {
+                Umkm umkm = response.body();
+
+                holder.tvUmkm.setText(umkm.getNama_umkm());
+            }
+
+            @Override
+            public void onFailure(Call<Umkm> call, Throwable t) {
+            }
+        });
     }
 
     @Override
@@ -53,7 +93,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
         public LinearLayout linearLayout;
         public ImageView imgProduct;
-        public TextView tvTitle, tvPrice, tvUmkm, tvLocation;
+        public TextView tvTitle, tvPrice, tvUmkm;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -63,7 +103,6 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
             tvPrice = (TextView) itemView.findViewById(R.id.tv_price);
             tvUmkm = (TextView) itemView.findViewById(R.id.tv_umkm);
-            tvLocation = (TextView) itemView.findViewById(R.id.tv_location);
         }
     }
 }
